@@ -8,13 +8,10 @@ const {
   updateproduct,
   getAdminProducts,
   addProductImage,
-  deleteProductImage,
-  addCategory,
-  getAllCategories,
-  deleteCategory,
+  deleteProductImage
 } = require('../controller/product');
 
-const singleUpload = require('../middleware/multer');
+const { singleUpload, multipleUpload } = require('../middleware/multer');
 const { authenticateUser, authorizeRoles } = require('../middleware/auth');
 
 const router = express.Router();
@@ -25,7 +22,7 @@ router.post(
   '/create',
   authenticateUser,
   authorizeRoles,
-  singleUpload,
+  multipleUpload,
   createproduct
 );
 // by Id
@@ -39,16 +36,5 @@ router
   .delete(authenticateUser, authorizeRoles, deleteProductImage);
 
 // router.get('/admin', authenticateUser, authorizeRoles, getAdminProducts);
-
-router.post('/category', authenticateUser, authorizeRoles, addCategory);
-
-router.get('/categories', getAllCategories);
-
-router.delete(
-  '/categories/:_id',
-  authenticateUser,
-  authorizeRoles,
-  deleteCategory
-);
 
 module.exports = router;

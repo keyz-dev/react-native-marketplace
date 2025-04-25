@@ -8,4 +8,8 @@ const singleUpload = multer({
   storage,
 }).single('file');
 
-module.exports = singleUpload;
+const multipleUpload = multer({
+  storage
+}).array('files', 5)
+
+module.exports = { singleUpload, multipleUpload };

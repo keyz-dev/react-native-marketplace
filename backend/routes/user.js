@@ -1,5 +1,6 @@
 const express = require('express');
-const singleUpload = require('../middleware/multer');
+const 
+ { singleUpload } = require('../middleware/multer');
 const {
   createuser,
   loginin,

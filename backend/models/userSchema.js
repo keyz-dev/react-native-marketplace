@@ -3,21 +3,17 @@ const Schema = mongoose.Schema;
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const addressSchema = require('./addressSchema');
 // const crypto = require('crypto');
 
-const addressSchema = new mongoose.Schema({
-  city: {
-    type: String,
+const coordinateSchema = new mongoose.Schema({
+  lat: {
+    type: Number,
     required: true,
-  },  
-  street: {
-    type: String,
   },
-  postalCode: String,
-  state: String,
-  country: {
-    type: String,
-    default: 'Cameroon',
+  lng: {
+    type: Number,
+    required: true,
   },
 });
 
@@ -35,6 +31,7 @@ const userSchema = new Schema({
     validate: [validator.isEmail, 'Not a valid email'],
   },
   phone: String,
+  whatsapp: String,
   password: {
     type: String,
     required: [true, 'Please enter the password'],
@@ -62,24 +59,27 @@ const userSchema = new Schema({
       message: 'please select correct role',
     },
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  userLikes: {
-    // a list of products the user likes
-    type: [Schema.Types.ObjectId],
-    ref: 'Product',
-    default: []
-  },
-  createdAt: { type: Date, default: Date.now },
-
   avatar: {
     public_id: String,
     url: String,
   },
   otp: Number,
   otp_expire: Date,
+
+  // For Vendor
+  shopName: String,
+  websiteURL: String,
+  shopDescription: String,
+  shopCoordinates: coordinateSchema,
+
+  // For Delivery
+  vehicleType: String,
+  deliveryZone: [{country: {type: String, default: 'Cameroon'}, city: String}],
+  currentLocation: coordinateSchema,
+  isAvailable: {
+    type: Boolean,
+    default: false,
+  },
 }, {timeStamps: true});
 
 // hashing password before saving user

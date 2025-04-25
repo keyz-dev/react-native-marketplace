@@ -5,25 +5,36 @@ const sendEmail = require('../utils/sendEmail');
 const sendToken = require('../utils/jwtToken');
 const getDataUri = require('../utils/dataUri');
 const cookieOptions = require('../utils/cookieOptions');
+const {validateClient, validateVendor, validateDelivery} = require('../validation/userValidator.js');
 
 const cloudinary = require('cloudinary');
 
 const createuser = wrapAsync(async (req, res, next) => {
-  const { name, email, password, userAddress, gender, phone, dob } = req.body;
-  // parse the address
-  const address = JSON.parse(userAddress);
 
-  if (
-    !name ||
-    !email ||
-    !password ||
-    !address ||
-    !gender ||
-    !phone ||
-    !dob
-  ) {
-    return next(new AppError('some of the input fields are missing', 401));
+  // parse the user address
+  // req.body.address = JSON.parse(req.body.address)
+    
+  if (req.body.role === 'vendor') {
+    // req.body.shopCoordinates = JSON.parse(req.body.shopCoordinates)
+    const { value, error } = validateVendor(req.body);
+    if (error) {
+      return next(new AppError(error.details[0].message, 400));
+    }
+  }else if(req.body.role === 'delivery') {
+    const { value, error } = validateDelivery(req.body);
+    if (error) {
+      return next(new AppError(error.details[0].message, 400));
+    }
+  }else {
+    req.body.role = "client"
+    const { value, error } = validateClient(req.body);
+    if (error) {
+      return next(new AppError(error.details[0].message, 400));
+    }
   }
+
+  // check if user already exist
+  const {email} = req.body;
   let user = await User.findOne({ email });
 
   if (user) {
@@ -41,17 +52,9 @@ const createuser = wrapAsync(async (req, res, next) => {
       url: myCloud.secure_url,
     };
   }
+  req.body.avatar = avatar;
 
-  user = new User({
-    name,
-    email,
-    password,
-    address,
-    phone,
-    gender,
-    dob,
-    avatar,
-  });
+  user = new User(req.body);
   user = await user.save();
 
   sendToken(user, res, `Registered Successfully`, 201);

@@ -1,5 +1,4 @@
 const Product = require('../models/productSchema');
-const Category = require('../models/categorySchema');
 const AppError = require('../error_handler/AppError');
 const wrapAsync = require('../error_handler/AsyncError');
 const getDataUri = require('../utils/dataUri');
@@ -13,24 +12,32 @@ const createproduct = wrapAsync(async (req, res, next) => {
   if (!name || !description || !category || !price || !stock) {
     return next(new AppError('some of the input fields is missing', 404));
   }
-  let image;
-  if (!req.file) {
+  
+  if (!req.files) {
     return next(new AppError('product image not found', 404));
   }
-  const file = getDataUri(req.file);
-  const myCloud = await cloudinary.v2.uploader.upload(file.content);
-  image = {
-    public_id: myCloud.public_id,
-    url: myCloud.secure_url,
-  };
- 
+  
+  let images = [];
+  for (let file in req.files){
+    console.log( file )
+    const fileUri = getDataUri(req.files[file]);
+    const myCloud = await cloudinary.v2.uploader.upload(fileUri.content);
+    images.push({
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    });
+  }
+
+  console.log("\n images uploaded")
+  console.log (images)
+
   await Product.create({
     name,
     description,
     category,
     price,
     stock,
-    images: [image],
+    images,
   });
 
   res.status(200).json({
@@ -80,7 +87,6 @@ const updateproduct = wrapAsync(async (req, res, next) => {
   }
 
   const { name, description, category, price, stock } = req.body;
-
   if (name) product.name = name;
   if (description) product.description = description;
   if (category) product.category = category;
@@ -178,44 +184,7 @@ const getAdminProducts = wrapAsync(async (req, res, next) => {
   });
 });
 
-// add category
-const addCategory = wrapAsync(async (req, res, next) => {
-  await Category.create(req.body);
 
-  res.status(201).json({
-    success: true,
-    message: 'Category Added Successfully',
-  });
-});
-
-// get all category
-const getAllCategories = wrapAsync(async (req, res, next) => {
-  const categories = await Category.find({});
-
-  res.status(200).json({
-    success: true,
-    categories,
-  });
-});
-
-const deleteCategory = wrapAsync(async (req, res, next) => {
-  const category = await Category.findById(req.params._id);
-  if (!category) return next(new AppError('Category Not Found', 404));
-  const products = await Product.find({ category: category._id });
-
-  for (let i = 0; i < products.length; i++) {
-    const product = products[i];
-    product.category = undefined;
-    await product.save();
-  }
-
-  await category.deleteOne();
-
-  res.status(200).json({
-    success: true,
-    message: 'Category Deleted Successfully',
-  });
-});
 
 module.exports = {
   createproduct,
@@ -226,7 +195,4 @@ module.exports = {
   getAdminProducts,
   addProductImage,
   deleteProductImage,
-  addCategory,
-  getAllCategories,
-  deleteCategory,
 };
