@@ -12,7 +12,7 @@ const {
 } = require('../controller/product');
 
 const { singleUpload, multipleUpload } = require('../middleware/multer');
-const { authenticateUser, authorizeRoles } = require('../middleware/auth');
+const { authenticateUser, authorizeRoles, authorizeCreateRoles } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -21,7 +21,7 @@ router.get('/admin', authenticateUser, getAdminProducts);
 router.post(
   '/create',
   authenticateUser,
-  authorizeRoles,
+  authorizeCreateRoles,
   multipleUpload,
   createproduct
 );

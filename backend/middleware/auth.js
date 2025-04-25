@@ -32,4 +32,13 @@ const authorizeRoles = (req, res, next) => {
   next();
 };
 
-module.exports = { authenticateUser, authorizeRoles };
+const authorizeCreateRoles = (req, res, next) => {
+  if (req.rootUser.role !== 'vendor') {
+    return next(
+      new AppError(`only vendor is  allowed to acccess this resource`, 401)
+    );
+  }
+  next();
+};
+
+module.exports = { authenticateUser, authorizeRoles, authorizeCreateRoles };

@@ -231,7 +231,7 @@ const updatePicByUser = wrapAsync(async (req, res, next) => {
     public_id: myCloud.public_id,
     url: myCloud.secure_url,
   };
-
+  
   await user.save();
   res.status(200).json({ success: true, message: 'Avatar Updated successful' });
 });

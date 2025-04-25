@@ -7,9 +7,9 @@ const cloudinary = require('cloudinary');
 // to Create product
 
 const createproduct = wrapAsync(async (req, res, next) => {
-  const { name, description, category, price, stock } = req.body;
+  const { name, description, category, price, stock, vendor } = req.body;
 
-  if (!name || !description || !category || !price || !stock) {
+  if (!name || !description || !category || !price || !stock || !vendor) {
     return next(new AppError('some of the input fields is missing', 404));
   }
   
@@ -38,6 +38,7 @@ const createproduct = wrapAsync(async (req, res, next) => {
     price,
     stock,
     images,
+    vendor,
   });
 
   res.status(200).json({
