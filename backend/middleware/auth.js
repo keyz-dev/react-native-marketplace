@@ -23,7 +23,7 @@ const authenticateUser = wrapAsync(async (req, res, next) => {
   next();
 });
 
-const authorizeRoles = (req, res, next) => {
+const authorizeAdminRoles = (req, res, next) => {
   if (req.rootUser.role !== 'admin') {
     return next(
       new AppError(`only admin is  allowed to acccess this resource`, 401)
@@ -32,7 +32,7 @@ const authorizeRoles = (req, res, next) => {
   next();
 };
 
-const authorizeCreateRoles = (req, res, next) => {
+const authorizeVendorRoles = (req, res, next) => {
   if (req.rootUser.role !== 'vendor') {
     return next(
       new AppError(`only vendor is  allowed to acccess this resource`, 401)
@@ -40,5 +40,13 @@ const authorizeCreateRoles = (req, res, next) => {
   }
   next();
 };
+const authorizeDeliveryRoles = (req, res, next) => {
+  if (req.rootUser.role !== 'delivery') {
+    return next(
+      new AppError(`only vendor is  allowed to acccess this resource`, 401)
+    );
+  }
+  next();
+};
 
-module.exports = { authenticateUser, authorizeRoles, authorizeCreateRoles };
+module.exports = { authenticateUser, authorizeAdminRoles, authorizeVendorRoles, authorizeDeliveryRoles };

@@ -10,14 +10,14 @@ const {
   proccessOrder,
   getMyOrders,
 } = require('../controller/order');
-const { authenticateUser, authorizeRoles } = require('../middleware/auth');
+const { authenticateUser, authorizeAdminRoles } = require('../middleware/auth');
 
 router.post('/create', authenticateUser, newOrder);
 
 router.put(
   '/admin/update/:_id',
   authenticateUser,
-  authorizeRoles,
+  authorizeAdminRoles,
   proccessOrder
 );
 
@@ -27,6 +27,6 @@ router.get('/loginUserorder', authenticateUser, getMyOrders);
 
 router.post('/payment', authenticateUser, processPayment);
 
-router.get('/admin', authenticateUser, authorizeRoles, getAdminOrders);
+router.get('/admin', authenticateUser, authorizeAdminRoles, getAdminOrders);
 
 module.exports = router;

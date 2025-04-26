@@ -4,6 +4,7 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const addressSchema = require('./addressSchema');
+require('dotenv').config();
 // const crypto = require('crypto');
 
 const coordinateSchema = new mongoose.Schema({
@@ -103,7 +104,7 @@ userSchema.methods.generateAuthToken = async function () {
       id: this._id,
     },
     process.env.JWT_SECRET,
-    { expiresIn: '10d' }
+    { expiresIn: process.env.JWT_EXPIRES_TIME },
   );
 
   return token;

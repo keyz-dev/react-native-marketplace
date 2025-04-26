@@ -12,7 +12,7 @@ const {
 } = require('../controller/product');
 
 const { singleUpload, multipleUpload } = require('../middleware/multer');
-const { authenticateUser, authorizeRoles, authorizeCreateRoles } = require('../middleware/auth');
+const { authenticateUser, authorizeAdminRoles, authorizeVendorRoles } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -21,20 +21,20 @@ router.get('/admin', authenticateUser, getAdminProducts);
 router.post(
   '/create',
   authenticateUser,
-  authorizeCreateRoles,
+  authorizeVendorRoles,
   multipleUpload,
   createproduct
 );
 // by Id
-router.get('/productbyid/:_id', readsingleproduct);
-router.put('/admin/:_id', authenticateUser, authorizeRoles, updateproduct);
-router.delete('/admin/:_id', authenticateUser, authorizeRoles, removeproduct);
+router.get('/:_id', readsingleproduct);
+router.put('/:_id', authenticateUser, authorizeVendorRoles, updateproduct);
+router.delete('/:_id', authenticateUser, authorizeVendorRoles, removeproduct);
 
 router
   .route('/images/:id')
-  .post(authenticateUser, authorizeRoles, singleUpload, addProductImage)
-  .delete(authenticateUser, authorizeRoles, deleteProductImage);
+  .post(authenticateUser, authorizeVendorRoles, singleUpload, addProductImage)
+  .delete(authenticateUser, authorizeVendorRoles, deleteProductImage);
 
-// router.get('/admin', authenticateUser, authorizeRoles, getAdminProducts);
+// router.get('/admin', authenticateUser, authorizeAdminRoles, getAdminProducts);
 
 module.exports = router;

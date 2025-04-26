@@ -62,7 +62,7 @@ const readallproduct = wrapAsync(async (req, res) => {
     query.category = category;
   }
 
-  const products = await Product.find(query).populate('category');
+  const products = await Product.find(query).populate('category').populate('vendor');
 
   res.status(200).json({
     success: true,
@@ -72,7 +72,7 @@ const readallproduct = wrapAsync(async (req, res) => {
 
 // to read  the product
 const readsingleproduct = wrapAsync(async (req, res, next) => {
-  const product = await Product.findById(req.params._id).populate('category');
+  const product = await Product.findById(req.params._id).populate('category').populate('vendor');
   if (!product) {
     return next(new AppError('product not found', 404));
   }
@@ -173,7 +173,7 @@ const removeproduct = wrapAsync(async (req, res, next) => {
 
 // to Admin Products
 const getAdminProducts = wrapAsync(async (req, res, next) => {
-  const products = await Product.find({}).populate('category');
+  const products = await Product.find({}).populate('category').populate('vendor');
 
   const outOfStock = products.filter((i) => i.stock === 0);
 

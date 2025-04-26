@@ -10,21 +10,21 @@ const {
 
 const 
  { singleUpload } = require('../middleware/multer');
-const { authenticateUser, authorizeRoles } = require('../middleware/auth');
+const { authenticateUser, authorizeAdminRoles } = require('../middleware/auth');
 
 const router = express.Router();
 
-router.post('/', authenticateUser, authorizeRoles, singleUpload, addCategory);
+router.post('/', authenticateUser, authorizeAdminRoles, singleUpload, addCategory);
 router.get('/', getAllCategories);
 
 router.get('/:_id', readsinglecategory);
-router.put('/admin/:_id', authenticateUser, authorizeRoles, updateCategory);
+router.put('/admin/:_id', authenticateUser, authorizeAdminRoles, updateCategory);
 
 
 router.delete(
   '/:_id',
   authenticateUser,
-  authorizeRoles,
+  authorizeAdminRoles,
   deleteCategory
 );
 

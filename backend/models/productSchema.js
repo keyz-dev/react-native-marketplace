@@ -22,17 +22,11 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'Please Enter Stock'],
   },
-
   images: [{ public_id: String, url: String }],
-
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  }
 }, {timestamps: true});
 
 const Product = mongoose.model('Product', productSchema);
