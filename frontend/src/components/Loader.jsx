@@ -1,15 +1,20 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import { View } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper';
-import { colors } from '../styles/style';
+import { COLORS, SIZES } from '../constants'
 
 const Loader = () => {
   return (
-    <ActivityIndicator
-      style={{ top: '50%', position: 'absolute', alignSelf: 'center' }}
-      size={100}
-      color={colors.color1}
-    />
+    <View style={{
+        flex: 1,
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignContent: 'center',
+    }}>
+      <ActivityIndicator
+        size={SIZES.xxLarge} 
+        color={COLORS.primary} 
+      />
+    </View>
   );
 };
 

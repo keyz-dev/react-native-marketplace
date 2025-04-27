@@ -6,6 +6,7 @@ const { ObjectId } = require('mongoose');
 const cloudinary = require('cloudinary');
 // to Create product
 
+
 const createproduct = wrapAsync(async (req, res, next) => {
   const { name, description, category, price, stock, vendor } = req.body;
 
@@ -28,10 +29,7 @@ const createproduct = wrapAsync(async (req, res, next) => {
     });
   }
 
-  console.log("\n images uploaded")
-  console.log (images)
-
-  await Product.create({
+  const product = await Product.create({
     name,
     description,
     category,
@@ -44,21 +42,30 @@ const createproduct = wrapAsync(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: 'Product Created Successfully',
+    product
   });
 });
 
 // to read all the product
-const readallproduct = wrapAsync(async (req, res) => {
-  const { keyword, category } = req.query;
+const readallproducts = wrapAsync(async (req, res) => {
+  const products = await Product.find({}).populate('category').populate('vendor');
 
+  res.status(200).json({
+    success: true,
+    products,
+  });
+});
+
+const searchproducts = wrapAsync(async (req, res) => {
+  const { keyword, category } = req.query;
   const query = {
     name: {
       $regex: keyword ? keyword : '',
       $options: 'i',
-    },
+    }
   };
 
-  if (category !== undefined) {
+  if (category !== undefined || category == '') {
     query.category = category;
   }
 
@@ -69,6 +76,19 @@ const readallproduct = wrapAsync(async (req, res) => {
     products,
   });
 });
+
+// Get Best Sellers
+const readBestSellers = wrapAsync(async (req, res, next) => {
+  const bestSellers = await Product.find({
+    rating: { $gt: 4.5 }
+  }).sort({rating: -1}).populate('category').populate('vendor');
+  res.json({ success: true, products: bestSellers });
+})
+
+const readNewArrivals = wrapAsync(async (req, res, next)=>{
+  const products = await Product.find().sort({ createdAt: -1 }).populate('category').populate('vendor').limit(10);
+  res.json({ success: true, products });
+})
 
 // to read  the product
 const readsingleproduct = wrapAsync(async (req, res, next) => {
@@ -99,6 +119,7 @@ const updateproduct = wrapAsync(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: 'Product Updated Successfully',
+    product
   });
 });
 
@@ -189,11 +210,14 @@ const getAdminProducts = wrapAsync(async (req, res, next) => {
 
 module.exports = {
   createproduct,
-  readallproduct,
+  readallproducts,
   readsingleproduct,
   removeproduct,
   updateproduct,
   getAdminProducts,
   addProductImage,
   deleteProductImage,
+  readBestSellers,
+  readNewArrivals,
+  searchproducts
 };

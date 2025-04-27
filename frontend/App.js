@@ -1,24 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import Main from './src/Main';
-import { Provider } from 'react-redux';
 import { StripeProvider } from '@stripe/stripe-react-native';
-import { store } from './src/stateManagement/store';
-import { colors } from './src/styles/style';
 import {useFonts} from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
+import AppProviders from "./src/stateManagement/AppProviders";
 
 
 export default function App() {
 
   const [fontsLoaded] = useFonts({
-    'regular': require('./assets/fonts/Poppins-Regular.ttf'),
-    'bold': require('./assets/fonts/Poppins-Bold.ttf'),
-    'medium': require('./assets/fonts/Poppins-Medium.ttf'),
-    'semibold': require('./assets/fonts/Poppins-SemiBold.ttf'),
-    'light': require('./assets/fonts/Poppins-Light.ttf'),
-    'extrabold': require('./assets/fonts/Poppins-ExtraBold.ttf'),
+    'regular': require('./src/assets/fonts/Poppins-Regular.ttf'),
+    'bold': require('./src/assets/fonts/Poppins-Bold.ttf'),
+    'medium': require('./src/assets/fonts/Poppins-Medium.ttf'),
+    'semibold': require('./src/assets/fonts/Poppins-SemiBold.ttf'),
+    'light': require('./src/assets/fonts/Poppins-Light.ttf'),
+    'extrabold': require('./src/assets/fonts/Poppins-ExtraBold.ttf'),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -42,10 +39,10 @@ export default function App() {
         timeout: 5,
       }}
     >
-      <Provider store={store}>
+      <AppProviders>
         <Main />
         <StatusBar style='auto' />
-      </Provider>
+      </AppProviders>
     </StripeProvider>
   );
 }

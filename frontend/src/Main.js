@@ -1,32 +1,22 @@
 import React, {useEffect} from "react";
 import  {NavigationContainer} from "@react-navigation/native";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-
-// Importing user screens
-import {
-    Home,
-} from "./test_screens/index";
-import BottomTabNavigation from "./navigation/BottomTabNavigation";
-
+import {AppStack, AuthStack} from "./navigation";
 import Toast from "react-native-toast-message";
-import { useDispatch } from "react-redux";
-import { loadUser} from "./stateManagement/actions/userAction";
-
-const Stack = createNativeStackNavigator();
+import { useAuth } from "./stateManagement/contexts";
+import { Loader } from "./components";
 
 const Main = () => {
-    const dispatch = useDispatch();
-    
-    useEffect(() => {
-        dispatch(loadUser());
-    }, [dispatch]);
-    
+    const {user, loading } = useAuth()
+
+    if (loading){
+        return (
+            <Loader />
+        )
+    }
+
     return (
         <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="Bottom Navigation" component={BottomTabNavigation} options={{headerShown:false}}/>
-                <Stack.Screen name="home" component={Home} />
-            </Stack.Navigator>
+            {user ? <AppStack /> : <AuthStack />}
             <Toast position="top" />
         </NavigationContainer>
     );

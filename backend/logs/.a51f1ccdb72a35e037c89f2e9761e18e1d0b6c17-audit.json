@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 10
+    },
+    "auditLog": "D:\\Projects\\React Native\\new_marketplace\\backend\\logs\\.a51f1ccdb72a35e037c89f2e9761e18e1d0b6c17-audit.json",
+    "files": [
+        {
+            "date": 1746274199036,
+            "name": "D:\\Projects\\React Native\\new_marketplace\\backend\\logs\\Error_2025-05-03.log",
+            "hash": "3504eec971ef78e261793da600d64101e6af0ab47d0253b5985bfc208a916cc7"
+        }
+    ],
+    "hashType": "sha256"
+}

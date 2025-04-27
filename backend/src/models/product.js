@@ -22,6 +22,10 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'Please Enter Stock'],
   },
+  rating: {
+    type: Number,
+    default: 0
+  },
   images: [{ public_id: String, url: String }],
   category: {
     type: mongoose.Schema.Types.ObjectId,

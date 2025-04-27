@@ -1,14 +1,18 @@
 const express = require('express');
+const cors = require('cors')
 
 const {
   createproduct,
-  readallproduct,
+  readallproducts,
   readsingleproduct,
   removeproduct,
   updateproduct,
   getAdminProducts,
   addProductImage,
-  deleteProductImage
+  deleteProductImage,
+  readBestSellers,
+  readNewArrivals,
+  searchproducts
 } = require('../controller/product');
 
 const { singleUpload, multipleUpload } = require('../middleware/multer');
@@ -16,8 +20,17 @@ const { authenticateUser, authorizeAdminRoles, authorizeVendorRoles } = require(
 
 const router = express.Router();
 
-router.get('/all', readallproduct);
+router.use(express.json({limit: "50mb", extended: false}))
+router.use(express.urlencoded({limit: "50mb", extended: false}))
+router.use(cors())
+
+router.get('/', readallproducts);
+router.get('/search', searchproducts);
+router.get('/best-sellers', readBestSellers);
+router.get('/new-arrivals', readNewArrivals);
+
 router.get('/admin', authenticateUser, getAdminProducts);
+
 router.post(
   '/create',
   authenticateUser,
