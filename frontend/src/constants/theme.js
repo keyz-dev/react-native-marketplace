@@ -50,5 +50,4 @@ const SHADOWS = {
     elevation: 5,
   },
 };  
-
 export { COLORS, SIZES , SHADOWS };

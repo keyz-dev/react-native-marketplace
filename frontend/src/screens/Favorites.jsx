@@ -1,14 +1,14 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import styles from './styles/cart.style'
+import { COLORS } from '../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const Cart = () => {
+const Favorites = () => {
   return (
     <SafeAreaView>
-      <Text>Cart</Text>
+      <Text>Favorites</Text>
     </SafeAreaView>
   )
 }
 
-export default Cart
+export default Favorites

@@ -5,7 +5,9 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 // Importing user screens
 import {
     Home,
-} from "./test_screens/index";
+    ProductDetails,
+    Cart
+} from "./screens/index";
 import BottomTabNavigation from "./navigation/BottomTabNavigation";
 
 import Toast from "react-native-toast-message";
@@ -26,6 +28,8 @@ const Main = () => {
             <Stack.Navigator>
                 <Stack.Screen name="Bottom Navigation" component={BottomTabNavigation} options={{headerShown:false}}/>
                 <Stack.Screen name="home" component={Home} />
+                <Stack.Screen name="ProductDetails" component={ProductDetails} options={{headerShown:false}}/>
+                <Stack.Screen name="Cart" component={Cart} options={{headerShown:false}}/>
             </Stack.Navigator>
             <Toast position="top" />
         </NavigationContainer>

@@ -13,12 +13,12 @@ import { useCallback } from 'react';
 export default function App() {
 
   const [fontsLoaded] = useFonts({
-    'regular': require('./assets/fonts/Poppins-Regular.ttf'),
-    'bold': require('./assets/fonts/Poppins-Bold.ttf'),
-    'medium': require('./assets/fonts/Poppins-Medium.ttf'),
-    'semibold': require('./assets/fonts/Poppins-SemiBold.ttf'),
-    'light': require('./assets/fonts/Poppins-Light.ttf'),
-    'extrabold': require('./assets/fonts/Poppins-ExtraBold.ttf'),
+    'regular': require('./src/assets/fonts/Poppins-Regular.ttf'),
+    'bold': require('./src/assets/fonts/Poppins-Bold.ttf'),
+    'medium': require('./src/assets/fonts/Poppins-Medium.ttf'),
+    'semibold': require('./src/assets/fonts/Poppins-SemiBold.ttf'),
+    'light': require('./src/assets/fonts/Poppins-Light.ttf'),
+    'extrabold': require('./src/assets/fonts/Poppins-ExtraBold.ttf'),
   });
 
   const onLayoutRootView = useCallback(async () => {
