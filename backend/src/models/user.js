@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const addressSchema = require('./addressSchema');
+const addressSchema = require('./address');
 require('dotenv').config();
 // const crypto = require('crypto');
 

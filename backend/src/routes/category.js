@@ -8,8 +8,7 @@ const {
     deleteCategory,
 } = require('../controller/category');
 
-const 
- { singleUpload } = require('../middleware/multer');
+const { singleUpload } = require('../middleware/multer');
 const { authenticateUser, authorizeAdminRoles } = require('../middleware/auth');
 
 const router = express.Router();
@@ -19,7 +18,6 @@ router.get('/', getAllCategories);
 
 router.get('/:_id', readsinglecategory);
 router.put('/admin/:_id', authenticateUser, authorizeAdminRoles, updateCategory);
-
 
 router.delete(
   '/:_id',

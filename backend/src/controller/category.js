@@ -1,4 +1,4 @@
-const Category = require('../models/categorySchema');
+const Category = require('../models/category');
 const AppError = require('../error_handler/AppError');
 const wrapAsync = require('../error_handler/AsyncError');
 const getDataUri = require('../utils/dataUri');

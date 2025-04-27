@@ -2,8 +2,6 @@ const express = require('express');
 const 
  { singleUpload } = require('../middleware/multer');
 const {
-  createuser,
-  loginin,
   forgotPassword,
   logout,
   resetPassword,
@@ -15,9 +13,6 @@ const {
 
 const { authenticateUser } = require('../middleware/auth');
 const router = express.Router();
-router.post('/register', singleUpload, createuser);
-
-router.post('/login', loginin);
 
 router.post('/forgotpassword', forgotPassword);
 router.get('/profile', authenticateUser, getUserProfile);

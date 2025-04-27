@@ -6,12 +6,10 @@ const sendToken = async (user, res, message, statusCode) => {
 
   res
     .status(statusCode)
-    .cookie('jwttoken', token, {
-      ...cookieOptions,
-      expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
-    })
     .json({
       success: true,
+      token,
+      user,
       message: message,
     });
 };

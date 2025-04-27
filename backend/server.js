@@ -1,11 +1,11 @@
 require('dotenv').config();
-const app = require('./app');
+const app = require('./src/app');
 const cloudinary = require('cloudinary');
 
 // const Stripe = require('stripe');
 // module.exports.stripe = require('stripe')(process.env.STRIPE_API_SECRET);
 
-const db = require('./db/db');
+const db = require('./src/db');
 db();
 
 // Cloudinary configuration

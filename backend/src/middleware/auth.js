@@ -1,26 +1,28 @@
 const jwt = require('jsonwebtoken');
 const AppError = require('../error_handler/AppError');
 const wrapAsync = require('../error_handler/AsyncError');
-const User = require('../models/userSchema');
+const User = require('../models/user');
 
 const authenticateUser = wrapAsync(async (req, res, next) => {
-  const { jwttoken } = req.cookies;
 
-  if (!jwttoken) {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+
+  if (!token) {
     return next(new AppError('Login first to access this resource.', 401));
   }
 
-  const verifytoken = jwt.verify(jwttoken, process.env.JWT_SECRET);
-
-  const rootUser = await User.findById(verifytoken.id);
-
-  if (!rootUser) {
-    return next(new AppError('Invaliduser', 403));
-  }
-
-  req.rootUser = rootUser;
-
-  next();
+  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+    if (err) {
+      return next(new AppError('Invalid or expired token.', 401));
+    }
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return next(new AppError('User not found.', 401));
+    }
+    req.rootUser = user;
+    next();
+  })
 });
 
 const authorizeAdminRoles = (req, res, next) => {

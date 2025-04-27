@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const addressSchema = require('./addressSchema');
+const addressSchema = require('./address');
 
 const orderItemSchema = new mongoose.Schema({
   product: {
@@ -44,7 +44,7 @@ const orderSchema = new mongoose.Schema({
     enum: ['processing', 'shipped', 'delivered', 'cancelled'],
     default: 'processing',
   },
-  totalPrice: {
+  totalAmount: {
     type: Number,
     required: true,
   },

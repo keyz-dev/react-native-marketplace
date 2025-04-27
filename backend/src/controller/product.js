@@ -1,4 +1,4 @@
-const Product = require('../models/productSchema');
+const Product = require('../models/product');
 const AppError = require('../error_handler/AppError');
 const wrapAsync = require('../error_handler/AsyncError');
 const getDataUri = require('../utils/dataUri');
