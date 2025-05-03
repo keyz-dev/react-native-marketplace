@@ -18,11 +18,7 @@ const Welcome = () => {
         <Text style={styles.welcomeText(COLORS.primary, 0)}>Online MarketPlace</Text>
       </View>
 
-<<<<<<< HEAD
       <SearchComponent handleSearch={handleSearch} frontIcon='search' rearIcon='filter'/>
-=======
-      <SearchComponent handleSearch={handleSearch} />
->>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
      
     </View>
   )

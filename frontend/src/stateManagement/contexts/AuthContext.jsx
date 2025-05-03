@@ -32,10 +32,17 @@ export const AuthProvider = ({ children }) => {
 
       console.log(res)
 
-      setToken(res.data.token);
-      setUser(res.data.user);
-      await AsyncStorage.setItem('token', res.data.token);
-      await AsyncStorage.setItem('user', JSON.stringify(res.data.user));
+      if(res.status != 400) {
+        setToken(res.data.token);
+        setUser(res.data.user);
+        await AsyncStorage.setItem('token', res.data.token);
+        await AsyncStorage.setItem('user', JSON.stringify(res.data.user));
+      }
+      else{
+        throw res.data.message
+      }
+
+
     } catch (error) {
       throw error;
     } finally {

@@ -4,11 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { Ionicons} from '@expo/vector-icons'
 import { COLORS, SIZES } from '../constants'
-<<<<<<< HEAD
 import { useCart } from '../stateManagement/contexts';
-=======
-import { StyleSheet } from 'react-native'
->>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
 
 import {Home, Search, Profile, Favorites, Cart} from '../screens'
 
@@ -34,10 +30,6 @@ const CustomTabBarButton = ({children, onPress}) => {
   return (
     <TouchableOpacity
       style={{
-<<<<<<< HEAD
-=======
-        top: -15,
->>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
         justifyContent: 'center',
         alignItems: 'center',
       }}
@@ -91,17 +83,12 @@ const BottomTabNavigation = () => {
             return <View>
                       <Ionicons name={focused ? "cart" : "cart-outline"} 
                         size={24} 
-<<<<<<< HEAD
                         color={focused ? COLORS.primary : COLORS.gray2}
-=======
-                        color={COLORS.gray2}
->>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
                       />
                       <Text style={
                         {position: 'absolute',
                         top: -10,
                         right: -6,
-<<<<<<< HEAD
                         fontFamily: 'regular',
                         color: COLORS.primary, 
                         fontSize: SIZES.medium+2,}
@@ -110,17 +97,6 @@ const BottomTabNavigation = () => {
               </View>
           }
           }}
-=======
-                        color: COLORS.white, 
-                        fontSize: SIZES.medium,}
-                        }
-                      >8</Text>
-              </View>
-          },
-          tabBarButton: (props) => (
-            <CustomTabBarButton {...props} />
-          )}}
->>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
         />
         <Tab.Screen 
           name="Favorites" 

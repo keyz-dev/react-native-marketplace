@@ -1,9 +1,5 @@
 import { StyleSheet } from "react-native";
 import { COLORS, SIZES } from "../../constants";
-<<<<<<< HEAD
-=======
-import ProductDetails from "../ProductDetails";
->>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
 
 const styles = StyleSheet.create({
     container: {
@@ -119,7 +115,6 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
     },
-<<<<<<< HEAD
     removeButton: {
         fontFamily: 'regular',
         position: 'absolute',
@@ -131,21 +126,16 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
     },
-=======
->>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
     addButtonText: {
         color: COLORS.white,
         fontSize: 18,
         fontFamily: 'bold',
     },
-<<<<<<< HEAD
     removeButtonText: {
         color: COLORS.primary,
         fontSize: 18,
         fontFamily: 'bold',
     },
-=======
->>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
   });
 
 export default styles;
