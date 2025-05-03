@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
+=======
+import React, { useState } from 'react';
+>>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import styles from './styles/productDetails.style';
 import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
 import { COLORS, SIZES } from '../constants';
+<<<<<<< HEAD
 import { useCart, useFavorites } from '../stateManagement/contexts'
 
 
@@ -39,15 +44,46 @@ const ProductDetails = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
+=======
+
+const ProductDetails = ({ route, navigation }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [quantity, setQuantity] = useState(1)
+
+  const addQuantity = ()=>{
+    setQuantity(quantity + 1)
+  }
+  
+  const reduceQuantity = ()=>{
+    quantity > 1 && setQuantity(quantity - 1)
+  }
+
+  const iconName = isFavorite ? 'heart' : 'heart-outline';
+  const { product } = route.params;
+
+  product.rating = 3.5;
+
+  return (
+    <View style={styles.container}>
+        
+>>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
         <View style={styles.upperRow}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.favoriteIcon}>
             <Ionicons name='chevron-back' size={30} />
           </TouchableOpacity>
+<<<<<<< HEAD
           <TouchableOpacity onPress={toggleFavorite} style={styles.favoriteIcon}>
               <Ionicons name={iconName} size={30} color={COLORS.primary} />
           </TouchableOpacity>
         </View>
         <Image source={{ uri: image}} style={styles.image} />
+=======
+          <TouchableOpacity onPress={()=>setIsFavorite(!isFavorite)} style={styles.favoriteIcon}>
+              <Ionicons name={iconName} size={30} color={COLORS.primary} />
+          </TouchableOpacity>
+        </View>
+        <Image source={{ uri: product.images[0] }} style={styles.image} />
+>>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
 
         {/* Info section */}
         <ScrollView style={styles.details} showsVerticalScrollIndicator={false}>
@@ -89,14 +125,19 @@ const ProductDetails = ({ route, navigation }) => {
             <View style={styles.location}>
               
               <Ionicons name='location-outline' size={20} />
+<<<<<<< HEAD
               <Text >
                 Yaounde, Cameroon
               </Text>
+=======
+              <Text >Lorem, ipsum dolor.</Text>
+>>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
             </View> 
 
           </View>
 
         </ScrollView>
+<<<<<<< HEAD
       
       
       <TouchableOpacity 
@@ -109,6 +150,11 @@ const ProductDetails = ({ route, navigation }) => {
           ): (
             <Text style={styles.addButtonText}>Add to Cart</Text>
           )}
+=======
+
+      <TouchableOpacity style={styles.addButton}>
+        <Text style={styles.addButtonText}>Add to Cart</Text>
+>>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
       </TouchableOpacity>
 
     </View>

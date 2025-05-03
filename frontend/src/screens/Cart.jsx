@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 import styles from './styles/cart.style'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -50,5 +51,19 @@ const Cart = () => {
     
   );
 };
+=======
+import { View, Text } from 'react-native'
+import React from 'react'
+import styles from './styles/cart.style'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-export default Cart;
+const Cart = () => {
+  return (
+    <SafeAreaView>
+      <Text>Cart</Text>
+    </SafeAreaView>
+  )
+}
+>>>>>>> 9cb7e11535ce99d81d01a764bd0bd2d3c94eb845
+
+export default Cart
